@@ -12,5 +12,6 @@
         public Genre? Genre { get; set; } = null!;
 
         public ICollection<Employment> Employments { get; } = new List<Employment>();
+        public ICollection<MovieComment> MovieComments { get; } = new List<MovieComment>();
     }
 }

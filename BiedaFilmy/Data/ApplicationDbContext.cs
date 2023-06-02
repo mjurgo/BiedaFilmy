@@ -1,5 +1,6 @@
 ﻿using BiedaFilmy.Models;
 using BiedaFilmy.Utils;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,7 @@ namespace BiedaFilmy.Data
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<Employment> Employments { get; set; }
+        public DbSet<MovieComment> MovieComments { get; set; }
 
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -33,6 +35,9 @@ namespace BiedaFilmy.Data
             //    b.Property(x => x.Birthday)
             //        .HasConversion<DateOnlyConverter, DateOnlyComparer>();
             //});
+            builder.Entity<MovieComment>()
+                .HasOne<IdentityUser>(c => c.User);
+
 
             builder.Entity<Employment>().HasKey(e => new { e.MovieId, e.PersonId });
 

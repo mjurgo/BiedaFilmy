@@ -30,6 +30,7 @@ namespace BiedaFilmy.Controllers.Admin
         }
 
         // GET: Movies/Details/5
+        [HttpGet("admin/movie/{id}")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Movies == null)
