@@ -20,6 +20,7 @@ namespace BiedaFilmy.Controllers
         }
 
         // GET: Movies
+        [HttpGet("movies")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Movies.Include(m => m.Genre);

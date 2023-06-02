@@ -11,17 +11,18 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BiedaFilmy.Controllers.Admin
 {
-    [Authorize(Roles = "Admin")]
-    public class MoviesController : Controller
+    public class AdminMoviesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public MoviesController(ApplicationDbContext context)
+        public AdminMoviesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Movies
+        [HttpGet("admin/movies")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Movies.Include(m => m.Genre);
