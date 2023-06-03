@@ -14,6 +14,7 @@ namespace BiedaFilmy.Data
         public DbSet<Employment> Employments { get; set; }
         public DbSet<Collection> Collections { get; set; }
         public DbSet<MovieComment> MovieComments { get; set; }
+        public DbSet<Role> Role { get; set; }
 
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)

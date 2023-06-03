@@ -167,6 +167,24 @@ namespace BiedaFilmy.Controllers.Admin
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddRole(Role role)
+        {
+            role.Position = "Actor";
+
+            ModelState.Remove("Position");
+
+            if (ModelState.IsValid)
+            {
+                _context.Add(role);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Details), new { Id = role.MovieId });
+            }
+            var movie = _context.Movies.FirstOrDefaultAsync(m => m.Id == role.MovieId);
+            return View("Details", movie);
+        }
+
         private bool MovieExists(int id)
         {
             return (_context.Movies?.Any(e => e.Id == id)).GetValueOrDefault();

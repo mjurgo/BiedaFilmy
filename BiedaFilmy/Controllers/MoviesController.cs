@@ -45,6 +45,7 @@ namespace BiedaFilmy.Controllers
             var movie = await _context.Movies
                 .Include(m => m.Genre)
                 .Include(m => m.Collections.Where(c => c.User == user))
+                .Include(m => m.Roles)
                 .Include(m => m.MovieComments)
                 .ThenInclude(mc => mc.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
