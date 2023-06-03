@@ -25,5 +25,6 @@ namespace BiedaFilmy.Models
         public ICollection<Employment> Employments { get; } = new List<Employment>();
         public ICollection<Collection> Collections { get; } = new List<Collection>();
         public ICollection<MovieComment> MovieComments { get; } = new List<MovieComment>();
+        public ICollection<Role> Roles { get; } = new List<Role>();
     }
 }
