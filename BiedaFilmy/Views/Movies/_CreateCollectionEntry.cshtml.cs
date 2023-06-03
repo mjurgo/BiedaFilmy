@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BiedaFilmy.Views.Movies
 {
-    public class _CreateCollectionEntryModel : PageModel
+    public class _CreateMovieCommentModel : PageModel
     {
         public void OnGet()
         {

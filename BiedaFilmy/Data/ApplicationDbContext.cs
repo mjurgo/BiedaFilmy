@@ -12,6 +12,7 @@ namespace BiedaFilmy.Data
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<Employment> Employments { get; set; }
+        public DbSet<Collection> Collections { get; set; }
         public DbSet<MovieComment> MovieComments { get; set; }
 
 
@@ -24,18 +25,9 @@ namespace BiedaFilmy.Data
         {
             base.OnModelCreating(builder);
 
-            //builder.Entity<Movie>(b =>
-            //{
-            //    b.Property(x => x.Release)
-            //        .HasConversion<DateOnlyConverter, DateOnlyComparer>();
-            //});
-
-            //builder.Entity<Person>(b =>
-            //{
-            //    b.Property(x => x.Birthday)
-            //        .HasConversion<DateOnlyConverter, DateOnlyComparer>();
-            //});
             builder.Entity<MovieComment>()
+                .HasOne<IdentityUser>(c => c.User);
+            builder.Entity<Collection>()
                 .HasOne<IdentityUser>(c => c.User);
 
 

@@ -6,58 +6,65 @@
 
 <h1>Details</h1>
 
-<div>
-    <h4>Movie</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Duration)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Duration)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Release)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Release)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Genre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Genre.Id)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@if(User.Identity.IsAuthenticated)
-{
-    <partial name="_CreateMovieComment" model="new MovieComment() { MovieId = Model.Id }" />
-}
-
-<h2>Komentarze</h2>
-@foreach (var c in Model.MovieComments)
-{
+<div class="col-md-8">
     <div>
-        <small>@c.Created</small>
-        <b>@c.User.UserName</b>
-        <p>@c.Content</p>
+        <h4>Movie</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Duration)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Duration)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Release)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Release)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Genre)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Genre.Id)
+            </dd>
+        </dl>
     </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <partial name="_CreateMovieComment" model="new MovieComment() { MovieId = Model.Id }" />
+    }
+
+    <h2>Komentarze</h2>
+    @foreach (var c in Model.MovieComments)
+    {
+        <div>
+            <small>@c.Created</small>
+            <b>@c.User.UserName</b>
+            <p>@c.Content</p>
+        </div>
+    }
+</div>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <partial name="_CreateCollectionEntry" model="@(Model.Collections.Count > 0 ? Model.Collections.FirstOrDefault() : new Collection() { MovieId = Model.Id })" />
 }

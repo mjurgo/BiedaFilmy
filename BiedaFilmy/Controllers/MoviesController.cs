@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BiedaFilmy.Data;
 using BiedaFilmy.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BiedaFilmy.Controllers
 {
@@ -38,8 +39,11 @@ namespace BiedaFilmy.Controllers
                 return NotFound();
             }
 
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
             var movie = await _context.Movies
                 .Include(m => m.Genre)
+                .Include(m => m.Collections.Where(c => c.User == user))
                 .Include(m => m.MovieComments)
                 .ThenInclude(mc => mc.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -51,6 +55,9 @@ namespace BiedaFilmy.Controllers
             return View(movie);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User, Admin")]
         public async Task<IActionResult> CreateMovieComment(MovieComment movieComment)
         {
             movieComment.User = await _userManager.GetUserAsync(HttpContext.User);
@@ -65,6 +72,45 @@ namespace BiedaFilmy.Controllers
                 return RedirectToAction(nameof(Details), movieComment.Movie);
             }
             return View(movieComment.Movie);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User, Admin")]
+        public async Task<IActionResult> AddToCollection(Collection collection)
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            collection.User = user;
+
+            var existingCollectionCount = _context.Collections.Where(c => c.User == user && c.MovieId == collection.MovieId).Count();
+
+            ModelState.Remove("User");
+
+            if (collection.Mark != null && collection.Status == Enums.CollectionStatus.WantToSee)
+            {
+                collection.Status = Enums.CollectionStatus.Seen;
+            }
+
+            if (ModelState.IsValid)
+            {
+                _ = existingCollectionCount != 0 ? _context.Update(collection) : _context.Add(collection);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Details), new { Id = collection.MovieId});
+            }
+            var movie = _context.Movies.FirstOrDefault(m => m.Id == collection.MovieId);
+            return View("Details", movie);
+        }
+
+        [Authorize(Roles = "User, Editor, Admin")]
+        public async Task<IActionResult> DeleteCollectionEntry(int Id)
+        {
+            var collection = await _context.Collections.FirstOrDefaultAsync(c => c.Id == Id);
+            if (collection != null)
+            {
+                _context.Collections.Remove(collection);
+            }
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Details), new { Id = collection.MovieId });
         }
 
         private bool MovieExists(int id)
