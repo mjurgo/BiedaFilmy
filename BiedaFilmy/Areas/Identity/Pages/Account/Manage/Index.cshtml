@@ -5,54 +5,9 @@
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 <style>
-    .row{
+    h3 {
         color: white;
     }
-    .form {
-
-        padding: 5px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        justify-content: center;
-    }
-
-    .input {
-        padding: 5px;
-        background-color: transparent;
-        color: white;
-        padding: 5px;
-        background-color: black;
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-
-        .input:active .input:focus {
-            background-color: black;
-            color: white;
-        }
-
-        .input:focus {
-            background-color: black;
-            color: white;
-        }
-    .submit-button {
-        color: white;
-        background-color: black;
-        border: 1px solid white;
-    }
-
-        .submit-button:hover {
-            color: black;
-            background-color: white;
-            border: 1px solid black;
-        }
-
-        .submit-button:active {
-            color: black;
-            background-color: white;
-            border: 1px solid black;
-        }
 </style>
 <h3>@ViewData["Title"]</h3>
 <partial name="_StatusMessage" for="StatusMessage" />

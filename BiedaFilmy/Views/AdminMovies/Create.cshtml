@@ -3,10 +3,55 @@
 @{
     ViewData["Title"] = "Create";
 }
+<style> 
 
-<h1>Create</h1>
+    * {
+        color: white;
+    }
 
-<h4>Movie</h4>
+    .save-btn {
+        padding: 5px;
+        background-color: transparent;
+        color: white;
+        padding: 10px;
+        background-color: black;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        transition-duration: 0.5s;
+    }
+
+        .save-btn:hover {
+            padding: 5px;
+            background-color: white;
+            color: black;
+            padding: 10px;
+        }
+
+        .save-btn:focus {
+            padding: 5px;
+            background-color: white;
+            color: black;
+            padding: 10px;
+        }
+
+    .back-to-list {
+        color: white;
+        text-decoration: none;
+    }
+
+    .back-to-list:hover {
+        color: white;
+        text-decoration: none;
+    }
+
+    .row {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+</style>
+<h1>Tworzenie filmu</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -37,14 +82,14 @@
                 <select asp-for="GenreId" class ="form-control" asp-items="ViewBag.GenreId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Stwórz" class="save-btn" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="back-to-list">Back to List</a>
 </div>
 
 @section Scripts {

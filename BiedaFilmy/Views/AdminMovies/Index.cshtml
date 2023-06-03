@@ -3,7 +3,22 @@
 @{
     ViewData["Title"] = "Index";
 }
+<style>
+    * {
+        color: white;
+    }
+    tr>th {
+        text-align: center;
+    }
 
+    tr > td {
+        text-align: center;
+    }
+    .functions a {
+        color: white;
+        text-decoration: none;
+    }
+</style>
 <h1>Index</h1>
 
 <p>
@@ -49,9 +64,12 @@
                 @Html.DisplayFor(modelItem => item.Genre.Id)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <div class="functions"> 
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edytuj</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Szczegóły</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
+                </div>
+                
             </td>
         </tr>
 }

@@ -10,7 +10,7 @@
     .main{
         display: flex;
         flex-direction:row;
-
+        flex-wrap: wrap;
     }
     
     .edit-back{
@@ -23,54 +23,54 @@
 </style>
 <h1>@Model.Title</h1>
 
-<div class="col-md-8">
+<div class="main col-md-8 ">
     <div>
-        <h4>Movie</h4>
-        <hr />
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Title)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Title)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Description)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Duration)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Duration)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Release)
-            </dt>
-            <dd class="col-sm-10">
-                @Model.Release.ToShortDateString()
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Genre)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Genre.Name)
-            </dd>
-        </dl>
-    </div>
-    <div>
-        <h3>Obsada</h3>
-        @foreach (var role in Model.Roles)
-        {
-            <p><b>@role.Person</b> jako @role.CharacterName</p>
-        }
-        @if (Model.Roles.Count == 0)
-        {
-            <p>BRAK</p>
-        }
-    </div>
+        <div>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Duration)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Duration)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Release)
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.Release.ToShortDateString()
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Genre)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Genre.Name)
+                </dd>
+            </dl>
+        </div>
+        <div>
+            <h3>Obsada</h3>
+            @foreach (var role in Model.Roles)
+            {
+                <p><b>@role.Person</b> jako @role.CharacterName</p>
+            }
+            @if (Model.Roles.Count == 0)
+            {
+                <p>BRAK</p>
+            }
+        </div>
 
         @if (User.Identity.IsAuthenticated)
         {
@@ -90,6 +90,7 @@
                 }
             </div>
         }
+    </div>
     </div>
     <div class="col"> 
         <h3>Średnia ocena: @Model.Score</h3>

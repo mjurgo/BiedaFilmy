@@ -3,7 +3,63 @@
 @{
     ViewData["Title"] = "Details";
 }
+<style>
+    * {
+        color: white;
+    }
 
+    .row {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .back-to-list a {
+        color: white;
+        text-decoration: none;
+    }
+
+    .inputs {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .save-btn {
+        background-color: white;
+    }
+
+    .save-btn {
+        padding: 5px;
+        background-color: transparent;
+        color: white;
+        padding: 10px;
+        background-color: black;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        transition-duration: 0.5s;
+    }
+
+        .save-btn:hover {
+            padding: 5px;
+            background-color: white;
+            color: black;
+            padding: 10px;
+        }
+
+        .save-btn:focus {
+            padding: 5px;
+            background-color: white;
+            color: black;
+            padding: 10px;
+        }
+
+        dt {
+            text-align: right;
+        }
+
+</style>
 <h1>Details</h1>
 
 <div>
@@ -42,9 +98,9 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="back-to-list">
+    <a  asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a   asp-action="Index">Back to List</a>
 </div>
 
 <partial name="_AddRole" model="new Role() { MovieId = Model.Id }" />
