@@ -64,6 +64,8 @@
     }
 </div>
 
+<h3>Średnia ocena: @Model.Score</h3>
+
 @if (User.Identity.IsAuthenticated)
 {
     <partial name="_CreateCollectionEntry" model="@(Model.Collections.Count > 0 ? Model.Collections.FirstOrDefault() : new Collection() { MovieId = Model.Id })" />

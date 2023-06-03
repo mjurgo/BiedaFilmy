@@ -25,6 +25,8 @@ namespace BiedaFilmy.Data
         {
             base.OnModelCreating(builder);
 
+            builder.Entity<Movie>().Ignore(m => m.Score);
+
             builder.Entity<MovieComment>()
                 .HasOne<IdentityUser>(c => c.User);
             builder.Entity<Collection>()

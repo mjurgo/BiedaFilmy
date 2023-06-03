@@ -1,4 +1,6 @@
-﻿namespace BiedaFilmy.Models
+﻿using Microsoft.AspNetCore.Components;
+
+namespace BiedaFilmy.Models
 {
     public class Movie
     {
@@ -10,6 +12,8 @@
 
         public int GenreId { get; set; }
         public Genre? Genre { get; set; } = null!;
+
+        public float Score { get; set; } = 0.0f;
 
         public ICollection<Employment> Employments { get; } = new List<Employment>();
         public ICollection<Collection> Collections { get; } = new List<Collection>();

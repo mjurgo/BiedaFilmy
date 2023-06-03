@@ -9,6 +9,7 @@ using BiedaFilmy.Data;
 using BiedaFilmy.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace BiedaFilmy.Controllers
 {
@@ -47,9 +48,16 @@ namespace BiedaFilmy.Controllers
                 .Include(m => m.MovieComments)
                 .ThenInclude(mc => mc.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (movie == null)
             {
                 return NotFound();
+            }
+
+            var scores = _context.Collections.Where(c => c.MovieId == id && c.Mark != null).Select(c => c.Mark);
+            if (scores.Count() != 0)
+            {
+                movie.Score = (float)((float)scores.Sum() / scores.Count());
             }
 
             return View(movie);
@@ -57,7 +65,7 @@ namespace BiedaFilmy.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "User, Admin")]
+        [Authorize(Roles = "User, Editor, Admin")]
         public async Task<IActionResult> CreateMovieComment(MovieComment movieComment)
         {
             movieComment.User = await _userManager.GetUserAsync(HttpContext.User);
@@ -69,14 +77,15 @@ namespace BiedaFilmy.Controllers
             {
                 _context.Add(movieComment);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Details), movieComment.Movie);
+                return RedirectToAction(nameof(Details), new { Id = movieComment.MovieId });
             }
-            return View(movieComment.Movie);
+            var movie = _context.Movies.FirstOrDefaultAsync(m => m.Id == movieComment.MovieId);
+            return View("Details", movie);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "User, Admin")]
+        [Authorize(Roles = "User, Editor, Admin")]
         public async Task<IActionResult> AddToCollection(Collection collection)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
