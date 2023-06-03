@@ -122,6 +122,18 @@ namespace BiedaFilmy.Controllers
             return RedirectToAction(nameof(Details), new { Id = collection.MovieId });
         }
 
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteMovieComment(int Id)
+        {
+            var comment = await _context.MovieComments.FirstOrDefaultAsync(c => c.Id == Id);
+            if (comment != null)
+            {
+                _context.MovieComments.Remove(comment);
+            }
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Details), new { Id = comment.MovieId });
+        }
+
         private bool MovieExists(int id)
         {
           return (_context.Movies?.Any(e => e.Id == id)).GetValueOrDefault();

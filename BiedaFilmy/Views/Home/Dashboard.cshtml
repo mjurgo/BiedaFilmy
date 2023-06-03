@@ -1,0 +1,10 @@
+﻿@using BiedaFilmy.Enums;
+
+<h1>Kokpit</h1>
+
+<ul>
+    @foreach (var item in ViewBag.collections)
+    {
+        <li><a asp-controller="Movies" asp-action="Details" asp-route-id="@item.MovieId">@item.Movie.Title</a> | @item.Status | @(item.Status == CollectionStatus.Seen ? item.Mark : "Nieoceniony")</li>
+    }
+</ul>
