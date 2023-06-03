@@ -32,9 +32,12 @@
 
 <h1>Lista filmów</h1>
 
-<p class="create-paragraph">
-    <a asp-action="Create" class="create">Create New</a>
-</p>
+@if (User.IsInRole("Admin"))
+{
+    <p class="create-paragraph">
+        <a asp-action="Create" asp-controller="AdminMovies" class="create">Dodaj film</a>
+    </p>
+}
 <table class="table">
     <thead>
         <tr>
@@ -68,7 +71,7 @@
                 @Html.DisplayFor(modelItem => item.Duration)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Release)
+                @item.Release.ToShortDateString()
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Genre.Name)
