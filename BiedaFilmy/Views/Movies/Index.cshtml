@@ -27,6 +27,38 @@
     .table tr>th {
         color: white;
         text-align: center;
+        margin: 10px;
+        padding: 10px;
+    }
+    tbody tr>td {
+        text-align: center;
+    }
+    tr{
+        height: 70px;
+        line-height: 50px;
+    }
+
+    .table-row{
+        padding: 10px;
+        margin-top: 220px;
+    }
+    .white-link {
+        color: white;
+        text-decoration: none;
+        border: 1px solid white;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        transition-duration: 0.5s;
+    }
+
+    .white-link:hover{
+        cursor: pointer;
+        border: 1px solid white;
+        color: black;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: white;
     }
 </style>
 
@@ -37,7 +69,7 @@
 </p>
 <table class="table">
     <thead>
-        <tr>
+        <tr class="table-row">
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
@@ -59,7 +91,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.ActionLink(item.Title, "Details", "Movies", new { Id = item.Id })
+                    @Html.ActionLink(item.Title, "Details", "Movies", new { Id = item.Id }, new { @class = "white-link" })
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
