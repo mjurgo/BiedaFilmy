@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BiedaFilmy.Controllers.Admin
 {
+    [Authorize(Roles = "Admin")]
     public class AdminMoviesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -30,7 +31,7 @@ namespace BiedaFilmy.Controllers.Admin
         }
 
         // GET: Movies/Details/5
-        [HttpGet("admin/movie/{id}")]
+        [HttpGet("admin/movies/{id}")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Movies == null)
@@ -49,7 +50,8 @@ namespace BiedaFilmy.Controllers.Admin
             return View(movie);
         }
 
-        // GET: Movies/Create
+        [HttpGet("admin/movies/create")]
+
         public IActionResult Create()
         {
             ViewData["GenreId"] = new SelectList(_context.Genres, "Id", "Name");
@@ -59,7 +61,7 @@ namespace BiedaFilmy.Controllers.Admin
         // POST: Movies/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost("admin/movies/create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Description,Duration,Release,GenreId")] Movie movie)
         {
@@ -74,6 +76,7 @@ namespace BiedaFilmy.Controllers.Admin
         }
 
         // GET: Movies/Edit/5
+        [HttpGet("admin/movies/edit/{id}")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Movies == null)
@@ -93,7 +96,7 @@ namespace BiedaFilmy.Controllers.Admin
         // POST: Movies/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost("admin/movies/edit/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Duration,Release,GenreId")] Movie movie)
         {
@@ -126,7 +129,7 @@ namespace BiedaFilmy.Controllers.Admin
             return View(movie);
         }
 
-        // GET: Movies/Delete/5
+        [HttpGet("admin/movies/delete/{id}")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Movies == null)
@@ -146,7 +149,7 @@ namespace BiedaFilmy.Controllers.Admin
         }
 
         // POST: Movies/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost("admin/movies/delete/{id}"), ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
