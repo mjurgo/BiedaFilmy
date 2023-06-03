@@ -5,28 +5,36 @@
 }
 
 <style> 
-    .button {
-        color: white;
-        background-color: black;
-        border: 1px solid white;
-        padding: 10px;
+    * {
+        color: white
     }
 
-        .button:hover {
-            color: black;
-            background-color: white;
-            border: 1px solid black;
-        }
-
-        .button:active {
-            color: black;
-            background-color: white;
-            border: 1px solid black;
-        }
+    .create-paragraph{
+        margin: 20px 0px 20px 0px;
+    }
+    .create {
+        color: white;
+        border: 1px solid white;
+        padding: 10px;
+        text-decoration: none;
+        border-radius: 5px;
+        margin: 5px;
+    }
+    .create:hover{
+        color:white;
+        cursor: pointer;
+    }
+    .table tr>th {
+        color: white;
+        text-align: center;
+    }
 </style>
 
 <h1>Lista filmów</h1>
 
+<p class="create-paragraph">
+    <a asp-action="Create" class="create">Create New</a>
+</p>
 <table class="table">
     <thead>
         <tr>
