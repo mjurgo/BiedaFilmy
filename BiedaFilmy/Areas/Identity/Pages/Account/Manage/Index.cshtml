@@ -16,6 +16,43 @@
         gap: 10px;
         justify-content: center;
     }
+
+    .input {
+        padding: 5px;
+        background-color: transparent;
+        color: white;
+        padding: 5px;
+        background-color: black;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+        .input:active .input:focus {
+            background-color: black;
+            color: white;
+        }
+
+        .input:focus {
+            background-color: black;
+            color: white;
+        }
+    .submit-button {
+        color: white;
+        background-color: black;
+        border: 1px solid white;
+    }
+
+        .submit-button:hover {
+            color: black;
+            background-color: white;
+            border: 1px solid black;
+        }
+
+        .submit-button:active {
+            color: black;
+            background-color: white;
+            border: 1px solid black;
+        }
 </style>
 <h3>@ViewData["Title"]</h3>
 <partial name="_StatusMessage" for="StatusMessage" />
@@ -32,7 +69,7 @@
                 <label asp-for="Input.PhoneNumber" class="form-label"></label>
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
-            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+            <button id="update-profile-button" type="submit" class=" submit-button w-100 btn btn-lg btn-primary">Zapisz</button>
         </form>
     </div>
 </div>
